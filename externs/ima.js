@@ -132,10 +132,10 @@ google.ima.AdsManagerLoadedEvent = class extends Event {
 *   bitrate: (number),
 *   enablePreloading: (boolean),
 *   loadVideoTimeout: (number),
-*   mimeTypes: (?string[]),
+*   mimeTypes: (?Array.<string>),
 *   playAdsAfterTime: (number),
 *   restoreCustomPlaybackStateOnAdBreakComplete: (boolean),
-*   uiElements: (?string[]),
+*   uiElements: (?Array.<string>),
 *   useStyledLinearAds: (boolean),
 *   useStyledNonLinearAds: (boolean),
 * }}
@@ -160,7 +160,7 @@ google.ima.AdsManagerLoadedEvent = class extends Event {
 *   If loading takes longer than this timeout, the ad playback is canceled
 *   and the next ad in the pod plays, if available.
 *   Use -1 for the default of 8 seconds.
-* @property {?string[]} mimeTypes
+* @property {?Array.<string>} mimeTypes
 *   Only supported for linear video mime types.
 *   If specified, the SDK will include media that matches
 *   the MIME type(s) specified in the list and exclude media.
@@ -178,7 +178,7 @@ google.ima.AdsManagerLoadedEvent = class extends Event {
 *   state after an ad break completes. This is setting is used primarily
 *   when the publisher passes in its content player to use for
 *   custom ad playback.
-* @property {?string[]} uiElements
+* @property {?Array.<string>} uiElements
 *   Specifies whether the UI elements that should be displayed.
 *   The elements in this array are ignored for AdSense/AdX ads.
 * @property {boolean} useStyledLinearAds
