@@ -110,7 +110,7 @@ google.ima.AdsManager = class {
   dispatchEvent() {}
 
   /**
-   * @param {google.ima.AdsRenderingSettings} adsRenderingSettings
+   * @param {!google.ima.AdsRenderingSettings} adsRenderingSettings
    */
   updateAdsRenderingSettings(adsRenderingSettings) {}
 };
@@ -120,7 +120,7 @@ google.ima.AdsManager = class {
 google.ima.AdsManagerLoadedEvent = class extends Event {
   /**
    * @param {!HTMLElement} video
-   * @param {google.ima.AdsRenderingSettings} [adsRenderingSettings]
+   * @param {!google.ima.AdsRenderingSettings} [adsRenderingSettings]
    * @return {!google.ima.AdsManager}
    */
   getAdsManager(video, adsRenderingSettings) {}
@@ -128,22 +128,66 @@ google.ima.AdsManagerLoadedEvent = class extends Event {
 
 /**
 * @typedef {{
-*   autoAlign: (boolean|undefined),
-*   restoreCustomPlaybackStateOnAdBreakComplete: (boolean|undefined),
+*   autoAlign: (boolean),
+*   bitrate: (number),
+*   enablePreloading: (boolean),
+*   loadVideoTimeout: (number),
+*   mimeTypes: (?string[]),
+*   playAdsAfterTime: (number),
+*   restoreCustomPlaybackStateOnAdBreakComplete: (boolean),
+*   uiElements: (?string[]),
+*   useStyledLinearAds: (boolean),
+*   useStyledNonLinearAds: (boolean),
 * }}
 *
 * @description Defines parameters that control the rendering of ads.
-* @property {boolean|undefined} autoAlign
+* @property {boolean} autoAlign
 *   Set to false if you wish to have fine grained control over
 *   the positioning of all non-linear ads.
 *   If this value is true, the ad is positioned in the bottom center.
 *   If this value is false, the ad is positioned in the top left corner.
 *   The default value is true.
-* @property {boolean|undefined} restoreCustomPlaybackStateOnAdBreakComplete
+* @property {number} bitrate
+*   Maximum recommended bitrate. The value is in kbit/s.
+*   The SDK will pick media with bitrate below the specified max,
+*   or the closest bitrate if there is no media with lower bitrate found.
+*   Default value, -1, means the SDK selects the maximum bitrate.
+* @property {boolean} enablePreloading
+*   Enables preloading of video assets.
+*   For more info see [our guide to preloading media]{@link https://developers.google.com/interactive-media-ads/docs/sdks/html5/preload}.
+* @property {number} loadVideoTimeout
+*   Timeout (in milliseconds) when loading a video ad media file.
+*   If loading takes longer than this timeout, the ad playback is canceled
+*   and the next ad in the pod plays, if available.
+*   Use -1 for the default of 8 seconds.
+* @property {?string[]} mimeTypes
+*   Only supported for linear video mime types.
+*   If specified, the SDK will include media that matches
+*   the MIME type(s) specified in the list and exclude media.
+*   that does not match the specified MIME type(s).
+*   The format is a list of strings,
+*   for example, [ 'video/mp4', 'video/webm', ... ] If not specified,
+*   the SDK will pick the media based on player capabilities.
+* @property {number} playAdsAfterTime
+*   For VMAP and ad rules playlists, only play ad breaks scheduled
+*   after this time (in seconds). This setting is strictly after - for example,
+*   setting playAdsAfterTime to 15 will cause IMA to ignore
+*   an ad break scheduled to play at 15s.
+* @property {boolean} restoreCustomPlaybackStateOnAdBreakComplete
 *   Specifies whether or not the SDK should restore the custom playback
 *   state after an ad break completes. This is setting is used primarily
 *   when the publisher passes in its content player to use for
 *   custom ad playback.
+* @property {?string[]} uiElements
+*   Specifies whether the UI elements that should be displayed.
+*   The elements in this array are ignored for AdSense/AdX ads.
+* @property {boolean} useStyledLinearAds
+*   Render linear ads with full UI styling.
+*   This setting does not apply to AdSense/AdX ads
+*   or ads played in a mobile context that already
+*   use full UI styling by default.
+* @property {boolean} useStyledNonLinearAds
+*   Render non-linear ads with a close and recall button.
 * @exportDoc
 */
 google.ima.AdsRenderingSettings;
