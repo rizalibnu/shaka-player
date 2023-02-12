@@ -108,6 +108,11 @@ google.ima.AdsManager = class {
 
   /** @override */
   dispatchEvent() {}
+
+  /**
+   * @param {google.ima.AdsRenderingSettings} adsRenderingSettings
+   */
+  updateAdsRenderingSettings(adsRenderingSettings) {}
 };
 
 
@@ -115,10 +120,33 @@ google.ima.AdsManager = class {
 google.ima.AdsManagerLoadedEvent = class extends Event {
   /**
    * @param {!HTMLElement} video
+   * @param {google.ima.AdsRenderingSettings} [adsRenderingSettings]
    * @return {!google.ima.AdsManager}
    */
-  getAdsManager(video) {}
+  getAdsManager(video, adsRenderingSettings) {}
 };
+
+/**
+* @typedef {{
+*   autoAlign: (boolean|undefined),
+*   restoreCustomPlaybackStateOnAdBreakComplete: (boolean|undefined),
+* }}
+*
+* @description Defines parameters that control the rendering of ads.
+* @property {boolean|undefined} autoAlign
+*   Set to false if you wish to have fine grained control over
+*   the positioning of all non-linear ads.
+*   If this value is true, the ad is positioned in the bottom center.
+*   If this value is false, the ad is positioned in the top left corner.
+*   The default value is true.
+* @property {boolean|undefined} restoreCustomPlaybackStateOnAdBreakComplete
+*   Specifies whether or not the SDK should restore the custom playback
+*   state after an ad break completes. This is setting is used primarily
+*   when the publisher passes in its content player to use for
+*   custom ad playback.
+* @exportDoc
+*/
+google.ima.AdsRenderingSettings;
 
 
 /** @const */
